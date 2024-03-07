@@ -21,17 +21,17 @@ public class InputOutputManager {
     }
     static final Scanner scanner = new Scanner(System.in);
 
-    static void userShape() {
+    static void getUserShape() {
         System.out.println("Please enter number representing a shape:");
         System.out.println("1 for square, 2 for triangle, 3 for circle.");
         shape = scanner.nextInt();
     }
 
-    static void showCalculatedArea(String shapeArea) {
+    static void showCalculatedArea(double shapeArea) {
         System.out.println("The area of your shape is " + shapeArea);
     }
 
-    static void dataInput(int shape) {
+    static void getDataInput() throws UnknownShapeException {
         try {
             switch (shape) {
                 case 1:

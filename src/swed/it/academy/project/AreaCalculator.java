@@ -1,4 +1,44 @@
 package swed.it.academy.project;
 
-public class AreaCalculator {
+import static swed.it.academy.project.InputOutputManager.*;
+
+public class AreaCalculator  {
+
+    public static void main(String[] args) {
+        runCalculator();
+    }
+
+    private static void runCalculator() {
+        getInputs();
+        generateOutputs();
+    }
+    private static void getInputs() {
+        getUserShape();
+        try {
+            getDataInput();
+        } catch (UnknownShapeException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void generateOutputs() {
+        int option = getShape();
+
+        Shape shape = switch (option) {
+            case 1 -> new Square(getData1());
+            case 2 -> new Triangle(getData1(), getData2());
+            case 3 -> new Circle(getData1());
+            default -> null;
+        };
+
+        if (shape == null) {
+           return;
+        }
+
+        showCalculatedArea(shape.getArea());
+
+    }
+
+
+
 }
