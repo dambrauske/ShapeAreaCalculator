@@ -14,8 +14,8 @@ public class AreaCalculator  {
     }
     private static void getInputs() {
         try {
-            int shape = getUserShape();
-            if (shape == 1 || shape == 2 || shape == 3) {
+            ShapeType shape = getUserShape();
+            if (validateShapeInput(shape)) {
                 getDataInput();
             }
         } catch (UnknownShapeException e) {
@@ -24,16 +24,12 @@ public class AreaCalculator  {
     }
 
     private static void generateOutputs() {
-        int option = getShape();
+        ShapeType shapeType = getShape();
 
-        switch (option) {
-            case 1:
-        }
-
-        Shape shape = switch (option) {
-            case 1 -> new Square(getData1());
-            case 2 -> new Triangle(getData1(), getData2());
-            case 3 -> new Circle(getData1());
+        Shape shape = switch (shapeType) {
+            case ShapeType.SQUARE -> new Square(getData1());
+            case ShapeType.TRIANGLE -> new Triangle(getData1(), getData2());
+            case ShapeType.CIRCLE -> new Circle(getData1());
             default -> null;
         };
 
