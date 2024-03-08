@@ -2,7 +2,6 @@ package swed.it.academy.project;
 import java.util.List;
 
 public abstract class Shape {
-
     private double side1;
     private double side2;
     private double area;
@@ -14,9 +13,6 @@ public abstract class Shape {
 
     public abstract double calculateArea();
 
-    public void calculateRectangleArea() {
-        this.area = this.side1 * this.side2;
-    }
     public double getSide1() {
         return side1;
     }
