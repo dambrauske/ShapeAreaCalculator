@@ -35,6 +35,7 @@ public class AreaCalculator {
             case ShapeType.SQUARE -> new Square(getData1());
             case ShapeType.TRIANGLE -> new Triangle(getData1(), getData2());
             case ShapeType.CIRCLE -> new Circle(getData1());
+            case ShapeType.HEXAGON -> new Hexagon(getData1());
             default -> null;
         };
 
@@ -43,6 +44,4 @@ public class AreaCalculator {
         }
         showCalculatedArea(shape.getArea());
     }
-
-
 }

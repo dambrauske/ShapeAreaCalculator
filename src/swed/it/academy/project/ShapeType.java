@@ -4,5 +4,6 @@ public enum ShapeType {
     UNKNOWN,
     SQUARE,
     TRIANGLE,
-    CIRCLE
+    CIRCLE,
+    HEXAGON
 }

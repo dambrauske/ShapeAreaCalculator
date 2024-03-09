@@ -40,23 +40,20 @@ public class IOManager {
         }
     }
 
-//    static boolean validateShapeInput(ShapeType shape) {
-//        ShapeType[] allowedShapes = {ShapeType.SQUARE, ShapeType.TRIANGLE, ShapeType.CIRCLE};
-//        return Arrays.stream(allowedShapes).anyMatch(allowedShape -> allowedShape == shape);
-//    }
-
     static ShapeType getUserShape() {
         System.out.println("Please enter number representing a shape:");
-        System.out.println("1 for square, 2 for triangle, 3 for circle.");
+        System.out.println("1 - square, 2 - triangle, 3 - circle, 4 - hexagon.");
 
         try {
             int userInputValue = scanner.nextInt();
 
             ShapeType[] shapeTypes = ShapeType.values();
 
+            // checking if user input corresponds to indexes of enum values (excluding 0 index)
             if (userInputValue < 1 || userInputValue > shapeTypes.length - 1) {
                 throw new InputMismatchException("Invalid input");
             } else {
+                // selecting shape from enums based on user input
                 ShapeType input = Arrays.stream(ShapeType.values())
                         .filter(shapeType -> shapeType.ordinal() == userInputValue)
                         .findFirst()
@@ -88,18 +85,42 @@ public class IOManager {
             switch (shape) {
                 case ShapeType.SQUARE:
                     System.out.println("Please enter side length in cm");
+                    while (!scanner.hasNextDouble()) {
+                        System.out.println("Input is not valid. Try again");
+                        scanner.next(); // Consume invalid input
+                    }
                     data1 = scanner.nextDouble();
                     inputsProvided = true;
                     break;
                 case ShapeType.TRIANGLE:
                     System.out.println("Please enter the base of a triangle in cm");
+                    while (!scanner.hasNextDouble()) {
+                        System.out.println("Input is not valid. Try again");
+                        scanner.next(); // Consume invalid input
+                    }
                     data1 = scanner.nextDouble();
                     System.out.println("Please enter the height of triangle in cm");
+                    while (!scanner.hasNextDouble()) {
+                        System.out.println("Input is not valid. Try again");
+                    }
                     data2 = scanner.nextDouble();
                     inputsProvided = true;
                     break;
                 case ShapeType.CIRCLE:
                     System.out.println("Please enter radius in cm");
+                    while (!scanner.hasNextDouble()) {
+                        System.out.println("Input is not valid. Try again");
+                        scanner.next(); // Consume invalid input
+                    }
+                    data1 = scanner.nextDouble();
+                    inputsProvided = true;
+                    break;
+                case ShapeType.HEXAGON:
+                    System.out.println("Please enter side length in cm");
+                    while (!scanner.hasNextDouble()) {
+                        System.out.println("Input is not valid. Try again");
+                        scanner.next(); // Consume invalid input
+                    }
                     data1 = scanner.nextDouble();
                     inputsProvided = true;
                     break;
@@ -109,9 +130,12 @@ public class IOManager {
         } catch (UnknownShapeException e) {
             System.out.println(e.getMessage());
             if (repeat()) {
+                System.out.println("repeat from get inputs");
                 getDataInput();
             }
         }
+
     }
 
 }
+
