@@ -9,6 +9,8 @@ public class IOManager {
     private static ShapeType shape;
     private static double data1;
     private static double data2;
+    public static boolean shapeSelected = false;
+    public static boolean inputsProvided = false;
 
     public static ShapeType getShape() {
         return shape;
@@ -24,16 +26,17 @@ public class IOManager {
 
     static final Scanner scanner = new Scanner(System.in);
 
-    static void repeat() {
+    public static boolean repeat() {
         System.out.println("Do you want to try again? Enter y/n");
         scanner.nextLine();
-        String answer = scanner.nextLine().toLowerCase();
+        String answer = scanner.nextLine();
 
-        if (answer.equals("y")) {
-            getUserShape();
-        } else if (answer.equals("n")) {
+        if (answer.equalsIgnoreCase("y")) {
+            return true;
+        } else {
             System.out.println("Calculator is off");
             scanner.close();
+            return false;
         }
     }
 
@@ -59,11 +62,14 @@ public class IOManager {
                         .findFirst()
                         .orElse(ShapeType.UNKNOWN);
                 shape = input;
+                shapeSelected = true;
             }
 
         } catch (InputMismatchException e) {
             System.out.println("Invalid input");
-            repeat();
+            if (repeat()) {
+                getUserShape();
+            }
         }
         return shape;
     }
@@ -83,23 +89,28 @@ public class IOManager {
                 case ShapeType.SQUARE:
                     System.out.println("Please enter side length in cm");
                     data1 = scanner.nextDouble();
+                    inputsProvided = true;
                     break;
                 case ShapeType.TRIANGLE:
                     System.out.println("Please enter the base of a triangle in cm");
                     data1 = scanner.nextDouble();
                     System.out.println("Please enter the height of triangle in cm");
                     data2 = scanner.nextDouble();
+                    inputsProvided = true;
                     break;
                 case ShapeType.CIRCLE:
                     System.out.println("Please enter radius in cm");
                     data1 = scanner.nextDouble();
+                    inputsProvided = true;
                     break;
                 default:
                     throw new UnknownShapeException("The shape is invalid");
             }
         } catch (UnknownShapeException e) {
             System.out.println(e.getMessage());
-            repeat();
+            if (repeat()) {
+                getDataInput();
+            }
         }
     }
 
