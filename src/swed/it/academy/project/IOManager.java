@@ -1,6 +1,7 @@
 package swed.it.academy.project;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class IOManager {
@@ -32,40 +33,36 @@ public class IOManager {
             getUserShape();
         } else if (answer.equals("n")) {
             System.out.println("Calculator is off");
+            scanner.close();
         }
     }
 
-    static boolean validateShapeInput(ShapeType shape) {
-        ShapeType[] allowedShapes = {ShapeType.SQUARE, ShapeType.TRIANGLE, ShapeType.CIRCLE};
-
-        return Arrays.stream(allowedShapes).anyMatch(allowedShape -> allowedShape == shape);
-    }
+//    static boolean validateShapeInput(ShapeType shape) {
+//        ShapeType[] allowedShapes = {ShapeType.SQUARE, ShapeType.TRIANGLE, ShapeType.CIRCLE};
+//        return Arrays.stream(allowedShapes).anyMatch(allowedShape -> allowedShape == shape);
+//    }
 
     static ShapeType getUserShape() {
         System.out.println("Please enter number representing a shape:");
         System.out.println("1 for square, 2 for triangle, 3 for circle.");
 
         try {
-            if (!scanner.hasNextInt()) {
-                throw new UnknownShapeException("Invalid input.");
-            }
-
-            ShapeType[] shapeTypes = ShapeType.values();
             int userInputValue = scanner.nextInt();
 
-            if (userInputValue < 1 || userInputValue > shapeTypes.length) {
-                throw new UnknownShapeException("Invalid input.");
-            }
+            ShapeType[] shapeTypes = ShapeType.values();
 
-            ShapeType input = Arrays.stream(ShapeType.values()).filter(shapeType -> shapeType.ordinal() == userInputValue).findFirst().orElse(ShapeType.UNKNOWN);
-            if (validateShapeInput(input)) {
-                shape = input;
+            if (userInputValue < 1 || userInputValue > shapeTypes.length - 1) {
+                throw new InputMismatchException("Invalid input");
             } else {
-                throw new UnknownShapeException("Invalid input.");
+                ShapeType input = Arrays.stream(ShapeType.values())
+                        .filter(shapeType -> shapeType.ordinal() == userInputValue)
+                        .findFirst()
+                        .orElse(ShapeType.UNKNOWN);
+                shape = input;
             }
 
-        } catch (UnknownShapeException e) {
-            System.out.println(e.getMessage());
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid input");
             repeat();
         }
         return shape;

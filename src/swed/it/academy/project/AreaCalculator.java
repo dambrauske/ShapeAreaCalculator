@@ -3,11 +3,9 @@ package swed.it.academy.project;
 import static swed.it.academy.project.IOManager.*;
 
 public class AreaCalculator  {
-
     public static void main(String[] args) {
         runCalculator();
     }
-
     private static void runCalculator() {
         getInputs();
         generateOutputs();
@@ -15,7 +13,7 @@ public class AreaCalculator  {
     private static void getInputs() {
         try {
             ShapeType shape = getUserShape();
-            if (validateShapeInput(shape)) {
+            if (shape != null) {
                 getDataInput();
             }
         } catch (UnknownShapeException e) {
@@ -25,6 +23,10 @@ public class AreaCalculator  {
 
     private static void generateOutputs() {
         ShapeType shapeType = getShape();
+
+        if (shapeType == null) {
+            return;
+        }
 
         Shape shape = switch (shapeType) {
             case ShapeType.SQUARE -> new Square(getData1());
