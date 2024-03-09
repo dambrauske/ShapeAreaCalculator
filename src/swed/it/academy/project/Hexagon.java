@@ -1,7 +1,6 @@
 package swed.it.academy.project;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import static swed.it.academy.project.Helper.roundUp;
 
 public class Hexagon extends Shape {
     public Hexagon(double side1) {
@@ -10,7 +9,7 @@ public class Hexagon extends Shape {
 
     @Override
     public double calculateArea() {
-        double area = (3 * Math. sqrt(3) * this.getSide1() * this.getSide1()) / 2;
-        return new BigDecimal(area).setScale(2, RoundingMode.UP).doubleValue();
+        double area = (3 * Math.sqrt(3) * this.getSide1() * this.getSide1()) / 2;
+        return roundUp(area);
     }
 }

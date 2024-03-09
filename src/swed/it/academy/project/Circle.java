@@ -1,9 +1,8 @@
 package swed.it.academy.project;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
+import static swed.it.academy.project.Helper.roundUp;
 
-public class Circle  extends Shape {
+public class Circle extends Shape {
 
     public Circle(double radius) {
         super(radius, radius);
@@ -12,6 +11,6 @@ public class Circle  extends Shape {
     @Override
     public double calculateArea() {
         double area = getSide1() * getSide1() * Math.PI;
-        return new BigDecimal(area).setScale(2, RoundingMode.UP).doubleValue();
+        return roundUp(area);
     }
 }
