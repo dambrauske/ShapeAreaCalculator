@@ -15,11 +15,12 @@ public class AreaCalculator {
                 runCalculator();
             }
         }
+        scanner.close();
     }
 
     private static void getInputs() {
         try {
-            ShapeType shape = getUserShape();
+            ShapeType shape = IOManager.getUserShape();
             if (shape != null) {
                 getDataInput();
             }
@@ -29,19 +30,19 @@ public class AreaCalculator {
     }
 
     private static void generateOutputs() {
-        ShapeType shapeType = getShape();
+        ShapeType shapeType = IOManager.getShape();
 
         Shape shape = switch (shapeType) {
-            case ShapeType.SQUARE -> new Square(getData1());
-            case ShapeType.TRIANGLE -> new Triangle(getData1(), getData2());
-            case ShapeType.CIRCLE -> new Circle(getData1());
-            case ShapeType.HEXAGON -> new Hexagon(getData1());
+            case ShapeType.SQUARE -> new Square(IOManager.getData1());
+            case ShapeType.TRIANGLE -> new Triangle(IOManager.getData1(), IOManager.getData2());
+            case ShapeType.CIRCLE -> new Circle(IOManager.getData1());
+            case ShapeType.HEXAGON -> new Hexagon(IOManager.getData1());
             default -> null;
         };
 
         if (shape == null) {
             return;
         }
-        showCalculatedArea(shape.getArea());
+        IOManager.showCalculatedArea(shape.getArea());
     }
 }
